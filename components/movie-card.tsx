@@ -68,9 +68,9 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
 
           {/* Large Number Overlay */}
           {rank !== undefined && (
-            <View className="absolute -left-2.5 bottom-0" style={{ width: 26, height: 40 }}>
+            <View className="absolute -left-2.5 bottom-0" style={{ width: 50, height: 40 }}>
               <MaskedView
-                style={{ width: 26, height: 40 }}
+                style={{ width: 50, height: 40 }}
                 maskElement={
                   <Text
                     className="text-[44px] font-black leading-[40px]"
@@ -84,7 +84,7 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
                   start={{ x: 0, y: 0 }}
                   end={{ x: 0, y: 1 }}
                   style={{ 
-                    width: 26, 
+                    width: 50, 
                     height: 40,
                     shadowColor: "rgba(0, 0, 0, 0.25)",
                     shadowOffset: { width: 4, height: 4 },
