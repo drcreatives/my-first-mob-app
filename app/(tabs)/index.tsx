@@ -2,6 +2,7 @@ import MovieCard from "@/components/movie-card";
 import SearchInput from "@/components/search-input";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
+import { useLatestMovies } from "@/services/useLatestMovies";
 import { useMovies } from "@/services/useMovies";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, ImageSourcePropType, ScrollView, Text, View } from "react-native";
@@ -9,6 +10,7 @@ import { ActivityIndicator, FlatList, Image, ImageSourcePropType, ScrollView, Te
 export default function Index() {
   const router = useRouter();
   const { movies, loading, error } = useMovies();
+  const { movies: latestMovies, loading: latestLoading, error: latestError } = useLatestMovies();
 
   return (
     <View className="flex-1 bg-primary">
@@ -57,6 +59,33 @@ export default function Index() {
                 />
               )}
             />
+          )}
+        </View>
+
+        {/* Latest Movies Section */}
+        <View className="mt-8">
+          <Text className="text-white text-xl font-bold leading-7 mb-3">
+            Latest movies
+          </Text>
+          
+          {latestLoading ? (
+            <ActivityIndicator size="large" color="#AB8BFF" className="my-10" />
+          ) : latestError ? (
+            <Text className="text-red-500 text-center my-10">{latestError}</Text>
+          ) : (
+            <View 
+              className="flex-row flex-wrap" 
+              style={{ rowGap: 24, justifyContent: "space-between" }}
+            >
+              {latestMovies.slice(0, 21).map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  variant="default"
+                  onPress={() => router.push(`/movies/${movie.id}`)}
+                />
+              ))}
+            </View>
           )}
         </View>
       </ScrollView>

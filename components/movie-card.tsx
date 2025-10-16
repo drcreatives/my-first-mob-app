@@ -120,7 +120,7 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      className="w-[110px] gap-3"
+      className="w-[47%] gap-3"
       style={{
         shadowColor: "rgba(206, 206, 251, 0.02)",
         shadowOffset: { width: 0, height: 12 },
@@ -132,11 +132,11 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
       {posterUrl ? (
         <Image
           source={{ uri: posterUrl }}
-          className="w-[104px] h-[151px] rounded"
+          className="w-full h-[151px] rounded"
           resizeMode="cover"
         />
       ) : (
-        <View className="w-[104px] h-[151px] rounded bg-dark-100" />
+        <View className="w-full h-[151px] rounded bg-dark-100" />
       )}
 
       {/* Title & Description */}

@@ -28,3 +28,12 @@ export const getMovieDetailsOptions = () => ({
   method: "GET",
   headers: TMDB_CONFIG.headers,
 });
+
+export const getLatestMoviesUrl = () => {
+  return `${TMDB_CONFIG.BASE_URL}/movie/now_playing`;
+};
+
+export const getLatestMoviesOptions = () => ({
+  method: "GET",
+  headers: TMDB_CONFIG.headers,
+});
