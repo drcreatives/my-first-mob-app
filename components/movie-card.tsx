@@ -101,7 +101,7 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
         <View className="gap-2">
           <Text
             className="text-white text-xs font-bold leading-4"
-            numberOfLines={2}
+            numberOfLines={1}
           >
             {movie.title}
           </Text>

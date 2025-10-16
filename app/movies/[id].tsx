@@ -58,7 +58,7 @@ const MovieDetails = () => {
         showsVerticalScrollIndicator={false}
       >
         {/* Poster Image with Gradient Overlay */}
-        <View className="relative w-full h-[447px]">
+        <View className="relative w-full h-[447px] rounded-b-sm">
           {posterUrl ? (
             <Image
               source={{ uri: posterUrl }}
@@ -83,35 +83,65 @@ const MovieDetails = () => {
             <Image
               source={icons.arrow as ImageSourcePropType}
               className="w-5 h-5"
+              tintColor={"#A8B5DB"}
               style={{ transform: [{ rotate: '180deg' }] }}
             />
           </TouchableOpacity>
+
+          {/* Play Button - Positioned over image at bottom right */}
+          <TouchableOpacity
+            className="absolute right-[10px] bottom-[-27px] w-[50px] h-[50px] items-center justify-center"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              borderRadius: 25,
+            }}
+          >
+            <LinearGradient
+              colors={['#D6C7FF', '#AB8BFF']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: 23,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                source={icons.play as ImageSourcePropType}
+                className="w-[21px] h-[23px]"
+                tintColor="#FFFFFF"
+                style={{ marginLeft: 3 }}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
 
-        {/* Movie Info Section */}
-        <View className="px-5 mt-4 gap-4">
+        {/* Movie Info Section - 17px from bottom of image */}
+        <View className="px-5 mt-[17px]">
           {/* Title and Metadata */}
           <View className="gap-1.5">
             <Text className="text-white text-xl font-bold leading-7">
               {movie.title}
             </Text>
             <View className="flex-row items-center gap-2.5">
-              <Text className="text-[#A8B5DB] text-sm">
+              <Text className="text-[#A8B5DB] text-sm leading-6">
                 {formatReleaseYear(movie.release_date)}
               </Text>
               <View className="w-[3px] h-[3px] rounded-full bg-[#A8B5DB]" />
-              <Text className="text-[#A8B5DB] text-sm">
+              <Text className="text-[#A8B5DB] text-sm leading-6">
                 {getRatingCategory(movie)}
               </Text>
               <View className="w-[3px] h-[3px] rounded-full bg-[#A8B5DB]" />
-              <Text className="text-[#A8B5DB] text-sm">
+              <Text className="text-[#A8B5DB] text-sm leading-6">
                 {formatRuntime(movie.runtime)}
               </Text>
             </View>
           </View>
 
-          {/* Rating and Trending Buttons */}
-          <View className="flex-row justify-end items-center gap-2.5">
+          {/* Rating and Trending Buttons - 16px gap from title */}
+          <View className="flex-row justify-start items-center gap-2.5 mt-4">
             {/* Rating Button */}
             <View className="bg-[#221F3D] rounded px-2.5 py-2 flex-row items-center gap-1.5">
               <Image
@@ -119,7 +149,7 @@ const MovieDetails = () => {
                 className="w-3.5 h-3.5"
                 tintColor="#FFCD1A"
               />
-              <Text className="text-[#A8B5DB] text-xs">
+              <Text className="text-[#A8B5DB] text-xs leading-3">
                 {formatRating(movie.vote_average)}/10 ({formatVoteCount(movie.vote_count)})
               </Text>
             </View>
@@ -127,19 +157,19 @@ const MovieDetails = () => {
             {/* Trending Badge */}
             <View className="bg-[#221F3D] rounded px-2 py-2 flex-row items-center gap-1">
               <Image
-                source={icons.play as ImageSourcePropType}
+                source={icons.trending as ImageSourcePropType}
                 className="w-3.5 h-3.5"
-                tintColor="#FFFFFF"
+                tintColor="#A8B5DB"
               />
-              <Text className="text-[#A8B5DB] text-xs font-semibold">
+              <Text className="text-[#A8B5DB] text-xs font-semibold leading-3">
                 {movie.popularity > 100 ? '1' : Math.floor(movie.popularity / 10)}
               </Text>
             </View>
           </View>
         </View>
 
-        {/* Detailed Info Sections */}
-        <View className="px-5 mt-8 gap-6">
+        {/* Detailed Info Sections - 135px from image bottom (599 - 464 = 135) */}
+        <View className="px-5 mt-[30px] gap-6">
           {/* Overview */}
           {movie.overview && (
             <View className="gap-1">
@@ -174,17 +204,17 @@ const MovieDetails = () => {
 
           {/* Genres */}
           {movie.genres && movie.genres.length > 0 && (
-            <View className="gap-2">
+            <View style={{ gap: 8 }}>
               <Text className="text-[#A8B5DB] text-xs leading-[15.6px]">
                 Genres
               </Text>
-              <View className="flex-row flex-wrap gap-2">
+              <View className="flex-row flex-wrap" style={{ gap: 9 }}>
                 {movie.genres.map((genre) => (
                   <View
                     key={genre.id}
                     className="bg-[#221F3D] rounded px-2.5 py-1.5"
                   >
-                    <Text className="text-white text-xs font-semibold">
+                    <Text className="text-white text-xs font-semibold leading-3">
                       {genre.name}
                     </Text>
                   </View>
@@ -277,9 +307,9 @@ const MovieDetails = () => {
                 colors={['#D6C7FF', '#AB8BFF']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
-                className="px-5 py-2.5 flex-row items-center justify-center gap-1"
+                className="py-2.5 px-5 flex-row items-center justify-center gap-1"
               >
-                <Text className="text-[#121212] text-xs font-semibold text-center">
+                <Text className="text-[#121212] text-xs font-semibold text-center leading-3">
                   Visit Homepage
                 </Text>
                 <Image
