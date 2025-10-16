@@ -1,11 +1,15 @@
+import MovieCard from "@/components/movie-card";
 import SearchInput from "@/components/search-input";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
+import { useMovies } from "@/services/useMovies";
 import { useRouter } from "expo-router";
-import { Image, ImageSourcePropType, ScrollView, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, ImageSourcePropType, ScrollView, Text, View } from "react-native";
 
 export default function Index() {
   const router = useRouter();
+  const { movies, loading, error } = useMovies();
+
   return (
     <View className="flex-1 bg-primary">
       <Image
@@ -14,7 +18,7 @@ export default function Index() {
       />
       <ScrollView
         className="flex-1 px-5"
-        contentContainerStyle={{ paddingBottom: 10, minHeight: "100%" }}
+        contentContainerStyle={{ paddingBottom: 100, minHeight: "100%" }}
         showsVerticalScrollIndicator={false}
       >
         <Image
@@ -26,6 +30,35 @@ export default function Index() {
           placeholder="Search through 300+ movies online"
           onPress={() => { router.push('/search') }}
         />
+
+        {/* Popular Movies Section */}
+        <View className="mt-8">
+          <Text className="text-white text-lg font-bold mb-3.5">
+            Popular movies
+          </Text>
+          
+          {loading ? (
+            <ActivityIndicator size="large" color="#AB8BFF" className="my-10" />
+          ) : error ? (
+            <Text className="text-red-500 text-center my-10">{error}</Text>
+          ) : (
+            <FlatList
+              data={movies.slice(0, 10)}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{ gap: 24 }}
+              renderItem={({ item, index }) => (
+                <MovieCard
+                  movie={item}
+                  variant="featured"
+                  rank={index + 1}
+                  onPress={() => router.push(`/movies/${item.id}`)}
+                />
+              )}
+            />
+          )}
+        </View>
       </ScrollView>
     </View>
   );

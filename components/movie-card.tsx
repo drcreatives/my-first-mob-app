@@ -1,6 +1,8 @@
 import { icons } from "@/constants/icons";
 import { TMDB_CONFIG } from "@/services/api";
 import { Movie } from "@/services/useMovies";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Image, ImageSourcePropType, Text, TouchableOpacity, View } from "react-native";
 
@@ -15,6 +17,7 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
   const posterUrl = movie.poster_path
     ? `${TMDB_CONFIG.IMAGE_BASE_URL}/w500${movie.poster_path}`
     : null;
+    console.log("posterUrl:", posterUrl);
 
   const rating = movie.vote_average.toFixed(1);
   const genres = "Action • Movie"; // You can map genre_ids to actual genre names later
@@ -65,17 +68,32 @@ const MovieCard = ({ movie, variant = "default", onPress, rank }: MovieCardProps
 
           {/* Large Number Overlay */}
           {rank !== undefined && (
-            <Text
-              className="absolute -left-2.5 bottom-0 text-[44px] font-black leading-[40px]"
-              style={{
-                textShadowColor: "rgba(0, 0, 0, 0.25)",
-                textShadowOffset: { width: 4, height: 4 },
-                textShadowRadius: 10,
-                color: "#FAF9F7",
-              }}
-            >
-              {rank}
-            </Text>
+            <View className="absolute -left-2.5 bottom-0" style={{ width: 26, height: 40 }}>
+              <MaskedView
+                style={{ width: 26, height: 40 }}
+                maskElement={
+                  <Text
+                    className="text-[44px] font-black leading-[40px]"
+                  >
+                    {rank}
+                  </Text>
+                }
+              >
+                <LinearGradient
+                  colors={["#FAF9F7", "#9B9EA7"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                  style={{ 
+                    width: 26, 
+                    height: 40,
+                    shadowColor: "rgba(0, 0, 0, 0.25)",
+                    shadowOffset: { width: 4, height: 4 },
+                    shadowOpacity: 1,
+                    shadowRadius: 10,
+                  }}
+                />
+              </MaskedView>
+            </View>
           )}
         </View>
 
