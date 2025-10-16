@@ -19,3 +19,12 @@ export const getMoviesOptions = () => ({
   method: "GET",
   headers: TMDB_CONFIG.headers,
 });
+
+export const getMovieDetailsUrl = (movieId: string | number) => {
+  return `${TMDB_CONFIG.BASE_URL}/movie/${movieId}`;
+};
+
+export const getMovieDetailsOptions = () => ({
+  method: "GET",
+  headers: TMDB_CONFIG.headers,
+});
