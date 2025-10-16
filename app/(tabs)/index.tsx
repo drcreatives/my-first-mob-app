@@ -19,7 +19,7 @@ export default function Index() {
       >
         <Image
           source={icons.logo as ImageSourcePropType}
-          className="w-12 h-10 mx-auto mt-20 mb-5"
+          className="w-12 h-10 mx-auto mt-20 mb-6"
         />
         
         <SearchInput 
